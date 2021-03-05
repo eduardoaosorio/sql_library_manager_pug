@@ -18,16 +18,22 @@ router.get(
 );
 
 // Shows the full list of books
-router.get("/books", (req, res, next) => {});
+router.get("/books", (req, res, next) => {
+  res.render("index");
+});
 
 // Shows the create new book form
-router.get("/books/new", (req, res, next) => {});
+router.get("/books/new", (req, res, next) => {
+  res.render("new-book");
+});
 
 // Posts a new book to the database
 router.post("/books/new", (req, res, next) => {});
 
 // Shows book update form
-router.get("/books/:id", (req, res, next) => {});
+router.get("/books/:id", (req, res, next) => {
+  res.render("update-book");
+});
 
 // Updates book info in the database
 router.post("/books/:id", (req, res, next) => {});
