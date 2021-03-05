@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+
+    h1= err.message
+    p Status: #{err.status}
+    p
+        a.button(href='/books') Home
