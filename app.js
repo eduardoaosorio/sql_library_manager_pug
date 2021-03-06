@@ -19,6 +19,9 @@ app.set("views", path.join(__dirname, "views"));
 // Middleware to serve static files
 app.use("/static", express.static(path.join(__dirname, "public")));
 
+// Middleware to parse for data
+app.use(express.urlencoded({ extended: true }));
+
 app.use(mainRoutes);
 
 // 404 handler
