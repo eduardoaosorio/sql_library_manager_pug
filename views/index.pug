@@ -12,9 +12,10 @@ block content
                 th Genre
                 th Year
         tbody
-            tr
-                td
-                    a(href='/books/:id') A Brief History of Time
-                td Stephen Hawking
-                td Non Fiction
-                td 1988
+            each book in allBooks
+                tr
+                    td
+                        a(href='/books/' + book.id)= book.title
+                    td= book.author
+                    td= book.genre
+                    td= book.year
