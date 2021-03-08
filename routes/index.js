@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Book } = require("../models/index");
+const { Op } = require("sequelize");
 
 function catchAsync(fn) {
   return (req, res, next) => {
@@ -17,8 +18,39 @@ router.get("/", (req, res, next) => {
 router.get(
   "/books",
   catchAsync(async (req, res, next) => {
-    const allBooks = await Book.findAll();
-    res.render("index", { allBooks });
+    const { q: query = null } = req.query;
+    if (query) {
+      const allBooks = await Book.findAll({
+        where: {
+          [Op.or]: [
+            {
+              title: {
+                [Op.like]: `%${query}%`,
+              },
+            },
+            {
+              author: {
+                [Op.like]: `%${query}%`,
+              },
+            },
+            {
+              genre: {
+                [Op.like]: `%${query}%`,
+              },
+            },
+            {
+              year: {
+                [Op.like]: `%${query}%`,
+              },
+            },
+          ],
+        },
+      });
+      res.render("index", { allBooks });
+    } else {
+      const allBooks = await Book.findAll();
+      res.render("index", { allBooks });
+    }
   })
 );
 
