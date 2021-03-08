@@ -2,6 +2,13 @@ extends layout.pug
 
 block content
     h1 Update Book
+
+    if errMsgs
+        h2.error Oooops!
+        ul.error
+            each msg in errMsgs
+                li= msg 
+
     form(method='post' action='/books/' + book.id)
         p
             label(for='title') Title

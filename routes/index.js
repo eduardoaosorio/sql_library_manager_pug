@@ -31,8 +31,17 @@ router.get("/books/new", (req, res, next) => {
 router.post(
   "/books/new",
   catchAsync(async (req, res, next) => {
-    await Book.create({ ...req.body });
-    res.redirect("/books");
+    try {
+      await Book.create({ ...req.body });
+      res.redirect("/books");
+    } catch (err) {
+      if (err.name === "SequelizeValidationError") {
+        const errMsgs = err.errors.map((error) => error.message);
+        res.render("new-book", { errMsgs });
+      } else {
+        throw err;
+      }
+    }
   })
 );
 
@@ -49,10 +58,19 @@ router.get(
 router.post(
   "/books/:id",
   catchAsync(async (req, res, next) => {
-    const book = await Book.findByPk(+req.params.id);
-    // depronto se puede optimizar que solo se update las prps que hayan cambiando, revisando antes cuales cambiaron
-    await book.update({ ...req.body });
-    res.redirect("/books");
+    try {
+      const book = await Book.findByPk(+req.params.id);
+      await book.update({ ...req.body });
+      res.redirect("/books");
+    } catch (err) {
+      if (err.name === "SequelizeValidationError") {
+        const errMsgs = err.errors.map((error) => error.message);
+        const book = await Book.findByPk(+req.params.id);
+        res.render("update-book", { book, errMsgs });
+      } else {
+        throw err;
+      }
+    }
   })
 );
 
