@@ -1,14 +1,15 @@
 extends layout.pug
 
 block content
-    h1 Books
+    h1
+        a.home-link(href='/books') Books
     .menu
         p.menu-item
             a.button(href='/books/new') Create New Book
-        form.menu-item(action='/books')
+        form.menu-item(action='/books' method='get')
             label.search(for='search')
-                input#search(placeholder='Search')
-                button(type='button') 🔍
+                input#search(placeholder='Search' name='q')
+                button(type='submit') 🔍
     table
         thead
             tr
