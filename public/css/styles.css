@@ -99,6 +99,14 @@ input[type="text"] {
   color: rgb(236, 15, 15);
 }
 
+.home-link {
+  color: black;
+}
+
+.home-link:hover {
+  color: #019875;
+}
+
 .menu {
   display: flex;
   flex-direction: row;
