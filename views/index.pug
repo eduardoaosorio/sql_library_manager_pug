@@ -2,8 +2,13 @@ extends layout.pug
 
 block content
     h1 Books
-    p
-        a.button(href='/books/new') Create New Book
+    .menu
+        p.menu-item
+            a.button(href='/books/new') Create New Book
+        form.menu-item(action='/books')
+            label.search(for='search')
+                input#search(placeholder='Search')
+                button(type='button') 🔍
     table
         thead
             tr

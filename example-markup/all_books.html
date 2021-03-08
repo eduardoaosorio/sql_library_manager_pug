@@ -3,13 +3,22 @@
 
 <head>
 	<title>Books</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="../public/css/normalize.css">
 	<link rel="stylesheet" href="../public/css/styles.css">
 </head>
 
 <body>
 	<h1>Books</h1>
-	<p><a class="button" href="new_book.html">Create New Book</a></p>
+	<div class="menu">
+		<p class="menu-item"><a class="button" href="new_book.html">Create New Book</a></p>
+		<form class="menu-item" action="/books">
+			<label for="search" class="search">
+				<input id="search" placeholder="Search">
+				<button type="button">&#x1f50d;</button>
+			</label>
+		</form>
+	</div>
 	<table>
 		<thead>
 			<tr>
