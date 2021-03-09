@@ -18,9 +18,11 @@ router.get("/", (req, res, next) => {
 router.get(
   "/books",
   catchAsync(async (req, res, next) => {
-    const { q: query = null } = req.query;
+    const { q: query = null, page = 1 } = req.query;
     if (query) {
-      const allBooks = await Book.findAll({
+      const result = await Book.findAndCountAll({
+        limit: 10,
+        offset: page * 10 - 10,
         where: {
           [Op.or]: [
             {
@@ -46,10 +48,20 @@ router.get(
           ],
         },
       });
-      res.render("index", { allBooks });
+      const pages = Math.ceil(result.count / 10);
+      const numeration = Array.from({ length: pages }, (undefined, i) => i + 1);
+      const allBooks = result.rows;
+      res.render("index", { allBooks, numeration, query });
     } else {
-      const allBooks = await Book.findAll();
-      res.render("index", { allBooks });
+      const result = await Book.findAndCountAll({
+        limit: 10,
+        offset: page * 10 - 10,
+        where: {},
+      });
+      const pages = Math.ceil(result.count / 10);
+      const numeration = Array.from({ length: pages }, (undefined, i) => i + 1);
+      const allBooks = result.rows;
+      res.render("index", { allBooks, numeration });
     }
   })
 );

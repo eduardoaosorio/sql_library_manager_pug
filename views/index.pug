@@ -6,9 +6,9 @@ block content
     .menu
         p.menu-item
             a.button(href='/books/new') Create New Book
-        form.menu-item(action='/books' method='get')
+        form.menu-item#the-form(action='/books' method='get')
             label.search(for='search')
-                input#search(placeholder='Search' name='q')
+                input#search(placeholder='Search' name='q' value='' + query ? query : '')
                 button(type='submit') 🔍
     table
         thead
@@ -25,3 +25,9 @@ block content
                     td= book.author
                     td= book.genre
                     td= book.year
+    if numeration
+        .pagination
+            ul.link-list
+                each pageNumber in numeration
+                    li
+                        button.active(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
