@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
 router.get(
   "/books",
   catchAsync(async (req, res, next) => {
-    const { q: query = null, page = 1 } = req.query;
+    const { q: query = null, page = null } = req.query;
     if (query) {
       const result = await Book.findAndCountAll({
         limit: 10,
@@ -51,7 +51,7 @@ router.get(
       const pages = Math.ceil(result.count / 10);
       const numeration = Array.from({ length: pages }, (undefined, i) => i + 1);
       const allBooks = result.rows;
-      res.render("index", { allBooks, numeration, query });
+      res.render("index", { allBooks, numeration, query, page });
     } else {
       const result = await Book.findAndCountAll({
         limit: 10,
@@ -61,7 +61,7 @@ router.get(
       const pages = Math.ceil(result.count / 10);
       const numeration = Array.from({ length: pages }, (undefined, i) => i + 1);
       const allBooks = result.rows;
-      res.render("index", { allBooks, numeration });
+      res.render("index", { allBooks, numeration, query, page });
     }
   })
 );
