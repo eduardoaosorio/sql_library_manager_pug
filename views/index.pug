@@ -29,5 +29,17 @@ block content
         .pagination
             ul.link-list
                 each pageNumber in numeration
-                    li
-                        button.active(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
+                    if !page
+                        if pageNumber == 1
+                            li
+                                button.active(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
+                        else
+                            li
+                                button(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
+                    else 
+                        if page == pageNumber
+                            li
+                                button.active(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
+                        else
+                            li
+                                button(type='submit' name='page' value='' + pageNumber form='the-form')= pageNumber
