@@ -3,6 +3,7 @@ const router = express.Router();
 const { Book } = require("../models/index");
 const { Op } = require("sequelize");
 
+// function to wrap async callbacks in routes and handle async errors
 function catchAsync(fn) {
   return (req, res, next) => {
     fn(req, res, next).catch((err) => next(err));

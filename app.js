@@ -22,6 +22,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 // Middleware to parse for data
 app.use(express.urlencoded({ extended: true }));
 
+// Main routes
 app.use(mainRoutes);
 
 // 404 handler
